@@ -1,0 +1,916 @@
+CREATE DATABASE CookieStoreDB
+ 
+USE CookieStoreDB
+ 
+GO
+ 
+
+CREATE TABLE Customer
+(
+   	CustomerID INT NOT NULL IDENTITY(3000,1) PRIMARY KEY,
+   	CustFName VARCHAR(15) NOT NULL,
+   	CustLName VARCHAR (20) NOT NULL,
+   	CustEmail VARCHAR (40),
+	CustPhone VARCHAR(16),
+);
+CREATE TABLE Ingredients
+(
+   	IngID INT NOT NULL IDENTITY(100,1) PRIMARY KEY,
+   	IngName VARCHAR (30) NOT NULL,  	
+);
+
+CREATE TABLE ProductTypes
+(
+   	PTypeID INT NOT NULL IDENTITY PRIMARY KEY,
+	PTypeDesc VARCHAR(35),
+);
+
+
+CREATE TABLE Promotions
+(
+   	PromoID INT NOT NULL IDENTITY(200,1) PRIMARY KEY,
+	PromoDesc VARCHAR(200),
+	DiscountAmt DECIMAL(2,2),
+);
+
+CREATE TABLE Products
+(
+   	ProductID INT NOT NULL IDENTITY(2000,1) PRIMARY KEY,
+   	PTypeID INT NOT NULL REFERENCES ProductTypes(PTypeID),
+   	ProductName VARCHAR(15),
+   	Price MONEY,
+	WholesalePrice AS (Price * .80)
+);
+
+CREATE TABLE Recipe
+(
+   	IngID INT NOT NULL REFERENCES Ingredients(IngID),
+   	ProductID INT NOT NULL REFERENCES Products(ProductID),
+	Measure DECIMAL(5,2),
+	Quantity INT,
+   	PRIMARY KEY (IngID, ProductID)
+);
+CREATE TABLE Orders
+(
+   	OrderID INT NOT NULL IDENTITY(400,1) PRIMARY KEY,
+   	CustomerID INT NOT NULL REFERENCES Customer(CustomerID),
+   	OrderDate DATETIME,
+);
+
+CREATE TABLE OrderItems
+(
+   	OrderID INT NOT NULL REFERENCES Orders(OrderID),
+   	ProductID INT NOT NULL REFERENCES Products(ProductID),
+	PromoID INT NOT NULL REFERENCES Promotions(PromoID),
+	Quantity INT,
+	Price MONEY,
+	PRIMARY KEY (OrderID, ProductID)
+);
+
+
+
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Davon', 'Gwillym', 'dgwillym0@imgur.com', '9337922523');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Marietta', 'Balham', 'mbalham1@huffingtonpost.com', '1742671357');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Corinne', 'McGuffie', 'cmcguffie2@surveymonkey.com', '5066316036');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Edvard', 'Blucher', 'eblucher3@creativecommons.org', '4284608186');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Beulah', 'Scini', 'bscini4@indiegogo.com', '8962887673');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Darb', 'Syseland', 'dsyseland5@oaic.gov.au', '1461348072');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Willem', 'Jindrich', 'wjindrich6@macromedia.com', '7747716178');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Adair', 'Parton', 'aparton7@phpbb.com', '4191947673');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Linn', 'Kunrad', 'lkunrad8@bloglines.com', '2276227424');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Rockwell', 'Lukasen', 'rlukasen9@wiley.com', '6349292420');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Robina', 'Focke', 'rfockea@addtoany.com', '4512089063');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Derril', 'Blaes', 'dblaesb@tumblr.com', '3606412775');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Bevan', 'Allworthy', 'ballworthyc@amazon.de', '2243850448');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Selie', 'Esome', 'sesomed@prlog.org', '2922404027');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Nikolai', 'Berkely', 'nberkelye@domainmarket.com', '1522551081');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Rica', 'Matelyunas', 'rmatelyunasf@alibaba.com', '1501884367');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Der', 'Kobiera', 'dkobierag@buzzfeed.com', '8519900668');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Caren', 'Gumery', 'cgumeryh@flavors.me', '9409484204');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Filmore', 'Linfoot', 'flinfooti@mtv.com', '6166129384');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Quintilla', 'Vice', 'qvicej@smugmug.com', '2331152436');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Clarabelle', 'Gallatly', 'cgallatlyk@adobe.com', '3208952522');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Rebbecca', 'Napoli', 'rnapolil@uol.com.br', '7105063301');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Leandra', 'Grant', 'lgrantm@friendfeed.com', '1129168973');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Rachelle', 'O''Gaven', 'rogavenn@de.vu', '8612537127');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Graehme', 'Malimoe', 'gmalimoeo@nhs.uk', '1438126591');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Ben', 'Prisk', 'bpriskp@sphinn.com', '2203580388');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Dagny', 'Pounder', 'dpounderq@bbc.co.uk', '9603141963');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Ianthe', 'Manchett', 'imanchettr@independent.co.uk', '7147391243');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Biddy', 'Maunder', 'bmaunders@twitpic.com', '2398835950');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Darleen', 'Garstang', 'dgarstangt@tuttocitta.it', '9372210692');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Anstice', 'Raunds', 'araundsu@loc.gov', '6534937646');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Riva', 'Leathard', 'rleathardv@miibeian.gov.cn', '1735149124');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Selia', 'Minister', 'sministerw@marriott.com', '9482298571');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Sergent', 'Storrah', 'sstorrahx@go.com', '7691720373');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Carrissa', 'Delue', 'cdeluey@hao123.com', '5268406085');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Elly', 'Broker', 'ebrokerz@yolasite.com', '1388745288');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Gwenora', 'Reuben', 'greuben10@usgs.gov', '5214536123');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Murdock', 'Redman', 'mredman11@flavors.me', '9659476483');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Antonius', 'Edwardson', 'aedwardson12@java.com', '6539363229');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Moise', 'Knightly', 'mknightly13@msu.edu', '5369255996');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Zollie', 'Collumbell', 'zcollumbell14@mail.ru', '5194855980');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Aloise', 'Bruck', 'abruck15@hibu.com', '2079439346');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Joice', 'Crossingham', 'jcrossingham16@naver.com', '7574987895');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('May', 'MacGray', 'mmacgray17@ft.com', '6647565273');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Jodi', 'Preuvost', 'jpreuvost18@google.it', '3259769481');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Johnna', 'Pickover', 'jpickover19@godaddy.com', '9275437567');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Brian', 'Stovell', 'bstovell1a@deliciousdays.com', '6208821484');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Jeanne', 'Puddin', 'jpuddin1b@nhs.uk', '1961461081');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Tracy', 'Perigoe', 'tperigoe1c@over-blog.com', '2526457732');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Lorens', 'Girard', 'lgirard1d@github.io', '2145766890');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Nikolaus', 'Durdan', 'ndurdan1e@sfgate.com', '7936926546');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Grissel', 'Dowdall', 'gdowdall1f@nature.com', '2778479250');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Keeley', 'Wroughton', 'kwroughton1g@4shared.com', '4201209819');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Brigid', 'Le Gallo', 'blegallo1h@cdbaby.com', '8511573679');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Northrop', 'Bruhnke', 'nbruhnke1i@comsenz.com', '9936143211');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Ernest', 'Padden', 'epadden1j@deviantart.com', '2458587020');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Dinah', 'Simonazzi', 'dsimonazzi1k@unc.edu', '4821845841');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Kennith', 'Whebell', 'kwhebell1l@wikispaces.com', '1579355807');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Annabal', 'Doneld', 'adoneld1m@wisc.edu', '7546962209');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Catarina', 'Jobes', 'cjobes1n@sciencedirect.com', '7267280365');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Mathe', 'Kippins', 'mkippins1o@github.io', '9672606833');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Kaylee', 'Slevin', 'kslevin1p@skyrock.com', '2959211390');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Ely', 'Simonnet', 'esimonnet1q@reference.com', '1211955448');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Mort', 'Heinecke', 'mheinecke1r@unesco.org', '5998829250');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Helene', 'Lanaway', 'hlanaway1s@hud.gov', '9787809356');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Jerald', 'Drogan', 'jdrogan1t@dion.ne.jp', '5054818855');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Mackenzie', 'Kingswoode', 'mkingswoode1u@last.fm', '1544926779');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Gordon', 'Catlow', 'gcatlow1v@paginegialle.it', '8444991641');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Estel', 'Southby', 'esouthby1w@exblog.jp', '7147480613');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Abie', 'Jowle', 'ajowle1x@independent.co.uk', '9604510155');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Zacharia', 'Dowell', 'zdowell1y@myspace.com', '1318157415');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Morse', 'Girardy', 'mgirardy1z@networkadvertising.org', '9896800379');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Olivia', 'Screach', 'oscreach20@huffingtonpost.com', '3897127023');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Kipp', 'Alner', 'kalner21@europa.eu', '6205945516');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Madelin', 'Hawley', 'mhawley22@dyndns.org', '7936676029');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Worthington', 'Agar', 'wagar23@youtu.be', '2331623021');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Kellia', 'Goundrill', 'kgoundrill24@nymag.com', '1905137649');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Theressa', 'Seaward', 'tseaward25@bizjournals.com', '7154625819');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Meggy', 'Ondracek', 'mondracek26@lycos.com', '1446648097');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Albertine', 'Frary', 'afrary27@flickr.com', '1625242353');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Devi', 'De Santos', 'ddesantos28@yelp.com', '7516078538');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Jacklin', 'Spratling', 'jspratling29@irs.gov', '8447217482');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Mella', 'Dingle', 'mdingle2a@xing.com', '3879783264');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Janifer', 'Wasmer', 'jwasmer2b@ovh.net', '6234735480');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Darrell', 'Berryann', 'dberryann2c@soundcloud.com', '7735638441');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Elke', 'MacNish', 'emacnish2d@chicagotribune.com', '2713166185');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Carree', 'Toffts', 'ctoffts2e@cyberchimps.com', '3042355580');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Gilbertine', 'Jurca', 'gjurca2f@fastcompany.com', '4033987866');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Domini', 'Ferro', 'dferro2g@pcworld.com', '3854762252');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Guido', 'Sabates', 'gsabates2h@goo.ne.jp', '9186844153');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Elka', 'Curedale', 'ecuredale2i@nydailynews.com', '2857842521');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Malory', 'Springle', 'mspringle2j@comcast.net', '5099794524');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Cleve', 'Alpe', 'calpe2k@moonfruit.com', '4515852179');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Tessa', 'Letrange', 'tletrange2l@bloomberg.com', '1638252121');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Ramsey', 'Mollatt', 'rmollatt2m@pcworld.com', '5632002355');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Zorana', 'Nast', 'znast2n@artisteer.com', '8708657108');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Candida', 'Fernandez', 'cfernandez2o@ycombinator.com', '5627281203');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Gilligan', 'Nicholes', 'gnicholes2p@deviantart.com', '6171557898');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Somerset', 'Stoute', 'sstoute2q@spotify.com', '6401821208');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Bernadina', 'Okill', 'bokill2r@netscape.com', '3915380957');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Ingaborg', 'Whittlesee', 'iwhittlesee2s@harvard.edu', '7043031376');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Jayson', 'Knightly', 'jknightly2t@drupal.org', '3059410289');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Cullen', 'Lambourne', 'clambourne2u@psu.edu', '1774558122');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Venita', 'Lenin', 'vlenin2v@paypal.com', '3198944956');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Wandie', 'Cianelli', 'wcianelli2w@vinaora.com', '8877228067');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Silvie', 'Ugolotti', 'sugolotti2x@ft.com', '1651483678');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Kirbie', 'Attewell', 'kattewell2y@mtv.com', '3083989414');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Cy', 'Saunderson', 'csaunderson2z@tmall.com', '2216991386');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Chrissie', 'MacCombe', 'cmaccombe30@google.com', '3149392322');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Innis', 'Ryal', 'iryal31@yahoo.co.jp', '4971346081');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Kalil', 'Tuma', 'ktuma32@tuttocitta.it', '3243530890');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Bonnie', 'Polleye', 'bpolleye33@microsoft.com', '9241131156');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Warden', 'Glading', 'wglading34@yolasite.com', '3572721031');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Marcille', 'Matonin', 'mmatonin35@squarespace.com', '6753838588');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Mauricio', 'Mordan', 'mmordan36@i2i.jp', '6234699976');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Jaye', 'Wingham', 'jwingham37@indiatimes.com', '9253112757');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Ase', 'Crudgington', 'acrudgington38@ocn.ne.jp', '3718119330');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Gun', 'Gorrissen', 'ggorrissen39@berkeley.edu', '2584814304');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Olive', 'Hickisson', 'ohickisson3a@google.com.au', '8567400295');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Randell', 'Redholes', 'rredholes3b@skyrock.com', '3551768897');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Alfredo', 'Petrushkevich', 'apetrushkevich3c@huffingtonpost.com', '6895176632');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Cindelyn', 'Stowe', 'cstowe3d@pcworld.com', '4711019048');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Janeva', 'Headings', 'jheadings3e@businessinsider.com', '8596304072');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Daffi', 'Bensusan', 'dbensusan3f@adobe.com', '7827090486');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Fleur', 'Rohfsen', 'frohfsen3g@ehow.com', '4026880193');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Olwen', 'Mc Cahey', 'omccahey3h@google.fr', '4712569565');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Elwin', 'Nesey', 'enesey3i@mayoclinic.com', '5861419207');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Mara', 'Lefridge', 'mlefridge3j@chronoengine.com', '1879845799');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Matthew', 'Roycroft', 'mroycroft3k@prnewswire.com', '4108436103');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Galina', 'Imlen', 'gimlen3l@opera.com', '2316420239');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Selina', 'MacMaykin', 'smacmaykin3m@list-manage.com', '5483387847');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Monty', 'Temple', 'mtemple3n@google.com.au', '4351709748');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Claretta', 'Fermin', 'cfermin3o@opensource.org', '2879100795');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Jessa', 'Mougenel', 'jmougenel3p@theglobeandmail.com', '2587183086');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Saul', 'Siebart', 'ssiebart3q@aol.com', '2218917324');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Elysia', 'Akerman', 'eakerman3r@forbes.com', '3018376813');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Tabby', 'Greedyer', 'tgreedyer3s@hostgator.com', '8474826121');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Aldus', 'Trevena', 'atrevena3t@istockphoto.com', '6922812893');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Wye', 'De Meis', 'wdemeis3u@unc.edu', '9674388012');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Karoly', 'Hansell', 'khansell3v@cyberchimps.com', '2225158067');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Ulla', 'Damrel', 'udamrel3w@creativecommons.org', '7923394105');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Robena', 'Tootin', 'rtootin3x@fotki.com', '5563601586');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Ermanno', 'Lisciardelli', 'elisciardelli3y@shinystat.com', '1624680587');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Gan', 'Coppard', 'gcoppard3z@youku.com', '5047969157');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Levin', 'Huggan', 'lhuggan40@seattletimes.com', '5914820729');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Cristiano', 'Brownsill', 'cbrownsill41@scientificamerican.com', '6753544827');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Nelle', 'Baile', 'nbaile42@imageshack.us', '8114999185');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Paton', 'Rolles', 'prolles43@clickbank.net', '5142907539');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Whitney', 'Josefowicz', 'wjosefowicz44@pcworld.com', '6268917382');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Tanny', 'Bazeley', 'tbazeley45@fastcompany.com', '8888575189');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Erika', 'MacCosto', 'emaccosto46@forbes.com', '4357938258');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Jordana', 'Ryde', 'jryde47@drupal.org', '3093487478');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Vevay', 'Meacher', 'vmeacher48@issuu.com', '2215742570');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Kile', 'Buer', 'kbuer49@scientificamerican.com', '3439245016');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Fenelia', 'Reder', 'freder4a@yellowbook.com', '5637653402');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Geneva', 'Barnsley', 'gbarnsley4b@eventbrite.com', '7691990448');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Kania', 'Foale', 'kfoale4c@unblog.fr', '1427991164');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Alisun', 'Chesshyre', 'achesshyre4d@economist.com', '9429316315');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Rozina', 'Fahrenbach', 'rfahrenbach4e@loc.gov', '7173616979');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Gaultiero', 'Pevie', 'gpevie4f@fc2.com', '9099642187');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Karlen', 'Feetham', 'kfeetham4g@oakley.com', '9598460122');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Tadeo', 'Seally', 'tseally4h@cdbaby.com', '9454652719');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Federico', 'McCaughey', 'fmccaughey4i@uiuc.edu', '3823195059');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Flinn', 'Livett', 'flivett4j@photobucket.com', '2789479864');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Gray', 'Bullock', 'gbullock4k@123-reg.co.uk', '6248948646');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Raddie', 'Pierse', 'rpierse4l@cargocollective.com', '8454895590');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Candra', 'Bird', 'cbird4m@vinaora.com', '5945792973');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Vince', 'O''Siaghail', 'vosiaghail4n@jiathis.com', '6612981104');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Ilaire', 'Brosini', 'ibrosini4o@sitemeter.com', '4742968511');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Lombard', 'Spellman', 'lspellman4p@theguardian.com', '5008854320');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Worthington', 'Ottam', 'wottam4q@nps.gov', '7521573433');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Bea', 'Dei', 'bdei4r@wisc.edu', '8617749477');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Peyton', 'Abbot', 'pabbot4s@pen.io', '7233568275');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Cammi', 'Coomber', 'ccoomber4t@harvard.edu', '5127527410');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Grannie', 'Itzchaky', 'gitzchaky4u@domainmarket.com', '4666735876');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Gisella', 'Murty', 'gmurty4v@bloglovin.com', '3328280479');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Pauletta', 'Jacobbe', 'pjacobbe4w@ustream.tv', '1066636772');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Lucie', 'Orpen', 'lorpen4x@gnu.org', '2887953664');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Kin', 'Carneck', 'kcarneck4y@example.com', '2236505483');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Joey', 'Wallicker', 'jwallicker4z@hud.gov', '6885812024');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Abe', 'Comerford', 'acomerford50@hexun.com', '6515475970');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Evangeline', 'Colbeck', 'ecolbeck51@oracle.com', '2402901826');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Faythe', 'Syder', 'fsyder52@tamu.edu', '6852091097');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Darby', 'Sherme', 'dsherme53@virginia.edu', '5712947509');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Tildie', 'Ollerearnshaw', 'tollerearnshaw54@bizjournals.com', '3623041342');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Hale', 'Meddemmen', 'hmeddemmen55@chronoengine.com', '8483451089');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Anne', 'Gulston', 'agulston56@cargocollective.com', '7821597947');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Edouard', 'McGeachie', 'emcgeachie57@toplist.cz', '3087576303');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Clo', 'Bockmaster', 'cbockmaster58@csmonitor.com', '1792445777');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Hayley', 'McJury', 'hmcjury59@ihg.com', '2998744868');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Simonne', 'De Atta', 'sdeatta5a@ucoz.ru', '8417113872');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Athena', 'Bottby', 'abottby5b@tmall.com', '9113200777');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Bekki', 'Eisig', 'beisig5c@php.net', '2445082359');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Manda', 'Leyzell', 'mleyzell5d@unblog.fr', '7035951904');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Ritchie', 'Kochl', 'rkochl5e@macromedia.com', '5421621077');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Ida', 'Ornils', 'iornils5f@harvard.edu', '5914276479');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Dwight', 'Nolleau', 'dnolleau5g@bbb.org', '6111696668');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Moina', 'Leber', 'mleber5h@theatlantic.com', '7652433029');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Moore', 'Beseke', 'mbeseke5i@acquirethisname.com', '6481689588');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Kliment', 'Harlett', 'kharlett5j@sciencedirect.com', '7091246237');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Ulric', 'Moncarr', 'umoncarr5k@skype.com', '1774029301');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Sara', 'Morley', 'smorley5l@github.io', '8362546052');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Von', 'Jerdon', 'vjerdon5m@europa.eu', '2156593925');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Jorge', 'Sharpin', 'jsharpin5n@shutterfly.com', '8374212319');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Nevsa', 'Fieller', 'nfieller5o@sogou.com', '9812336808');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Temple', 'Trulocke', 'ttrulocke5p@mozilla.com', '6455799416');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Aleece', 'Rosiello', 'arosiello5q@ebay.co.uk', '5429163398');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Devy', 'Aylmore', 'daylmore5r@moonfruit.com', '7178485880');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Charlotta', 'MacTrustey', 'cmactrustey5s@mapy.cz', '7561921828');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Armando', 'Brownsworth', 'abrownsworth5t@theguardian.com', '8107776973');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Barrie', 'Sarah', 'bsarah5u@bing.com', '7259651847');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Abramo', 'Thresher', 'athresher5v@creativecommons.org', '5229853933');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Tonnie', 'Fassan', 'tfassan5w@usatoday.com', '8548699196');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Cyrillus', 'Ludovico', 'cludovico5x@mapquest.com', '7088305957');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Gage', 'Fitzmaurice', 'gfitzmaurice5y@ibm.com', '1787853070');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Lilas', 'Searle', 'lsearle5z@biglobe.ne.jp', '6474352826');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Deanne', 'Kealey', 'dkealey60@gravatar.com', '5996149102');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Hugo', 'Geraghty', 'hgeraghty61@slate.com', '8284115005');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Carling', 'Delbergue', 'cdelbergue62@google.co.jp', '8185183853');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Waylen', 'Winterscale', 'wwinterscale63@ibm.com', '4123409902');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Alon', 'Sivyour', 'asivyour64@forbes.com', '1889624812');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Maritsa', 'Truter', 'mtruter65@vkontakte.ru', '4696381727');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Sidonnie', 'Burstowe', 'sburstowe66@craigslist.org', '5603186165');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Marlene', 'Whiteway', 'mwhiteway67@cbc.ca', '8076851368');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Guilbert', 'Skitch', 'gskitch68@reference.com', '2994637102');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Keen', 'Owers', 'kowers69@eventbrite.com', '4007023478');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Nannette', 'Andreini', 'nandreini6a@squarespace.com', '1609995375');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('My', 'Le Breton', 'mlebreton6b@e-recht24.de', '9312900369');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Koenraad', 'Keitley', 'kkeitley6c@indiegogo.com', '1241646038');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Ola', 'Bodill', 'obodill6d@theglobeandmail.com', '5281864139');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Shanon', 'De Fraine', 'sdefraine6e@wunderground.com', '2762735117');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Nancey', 'Stadding', 'nstadding6f@technorati.com', '9979422221');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Charla', 'Woollard', 'cwoollard6g@yahoo.co.jp', '6631602553');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Alwin', 'Waylett', 'awaylett6h@technorati.com', '5542316491');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Sheryl', 'Cuerdall', 'scuerdall6i@google.ru', '3364357591');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Nara', 'Jess', 'njess6j@t.co', '6286770316');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Merci', 'Simpkins', 'msimpkins6k@comsenz.com', '9114816548');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Welbie', 'Kaes', 'wkaes6l@blogspot.com', '5119203727');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Hyatt', 'Kirkup', 'hkirkup6m@vkontakte.ru', '5771779039');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Iggie', 'Cheers', 'icheers6n@statcounter.com', '6083927632');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Deeann', 'Robiou', 'drobiou6o@dion.ne.jp', '5322625296');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Dinah', 'Tinkler', 'dtinkler6p@macromedia.com', '9454621938');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Roby', 'Baiden', 'rbaiden6q@jiathis.com', '1607278434');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Kennie', 'Chessill', 'kchessill6r@zdnet.com', '3219615435');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Hillie', 'Lowfill', 'hlowfill6s@digg.com', '9363810102');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Mommy', 'Blabey', 'mblabey6t@scientificamerican.com', '2051529296');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Kora', 'Attwool', 'kattwool6u@opera.com', '5191125737');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Pauly', 'Teal', 'pteal6v@digg.com', '2913466422');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Hubert', 'Mabley', 'hmabley6w@issuu.com', '9631964188');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Kevyn', 'Cardillo', 'kcardillo6x@boston.com', '4434237051');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Joey', 'Andreopolos', 'jandreopolos6y@topsy.com', '9747233336');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Karin', 'Hargreave', 'khargreave6z@ebay.co.uk', '9376961785');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Mellisent', 'Kitcat', 'mkitcat70@gnu.org', '1283137297');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Blancha', 'Simpkiss', 'bsimpkiss71@rakuten.co.jp', '1586773607');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Carroll', 'Virgo', 'cvirgo72@dagondesign.com', '2676905396');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Adham', 'Wollrauch', 'awollrauch73@phpbb.com', '9851408841');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Jesus', 'Johnston', 'jjohnston74@usnews.com', '4883591681');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Chastity', 'Caldes', 'ccaldes75@vistaprint.com', '4096155567');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Dani', 'Braisted', 'dbraisted76@cloudflare.com', '6829525732');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Lina', 'Sanday', 'lsanday77@pcworld.com', '8272667267');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Jacquelyn', 'Gittus', 'jgittus78@1und1.de', '6739510418');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Frants', 'Berford', 'fberford79@slate.com', '3317135129');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Denver', 'Gahagan', 'dgahagan7a@xrea.com', '5584678513');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Drud', 'Havelin', 'dhavelin7b@goo.gl', '8294940496');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Jaymie', 'Nuttall', 'jnuttall7c@github.com', '7908989771');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Mara', 'Paxeford', 'mpaxeford7d@gizmodo.com', '7587558801');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Wye', 'Reynold', 'wreynold7e@hhs.gov', '2848113562');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Saxe', 'Barnshaw', 'sbarnshaw7f@marketwatch.com', '9382728685');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Earlie', 'Brimley', 'ebrimley7g@shop-pro.jp', '6345815134');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Phoebe', 'Rotherham', 'protherham7h@go.com', '2649544344');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Angus', 'Wycherley', 'awycherley7i@reverbnation.com', '4937264983');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Jameson', 'Giraldez', 'jgiraldez7j@bandcamp.com', '9373544336');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Hazel', 'Andrzejewski', 'handrzejewski7k@joomla.org', '8377977953');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Lilly', 'Oldcote', 'loldcote7l@scribd.com', '9154799449');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Zackariah', 'Asplen', 'zasplen7m@sun.com', '7726595208');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Elberta', 'Clelland', 'eclelland7n@newsvine.com', '8366782472');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Aurie', 'Grayson', 'agrayson7o@biglobe.ne.jp', '8987665822');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Jemmie', 'Pirdue', 'jpirdue7p@bloglovin.com', '9778230884');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Lydie', 'Tiernan', 'ltiernan7q@pbs.org', '5729356865');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Eugen', 'Dome', 'edome7r@sitemeter.com', '8754201102');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Cord', 'Squibbs', 'csquibbs7s@cbc.ca', '2524898584');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Clair', 'Jurkiewicz', 'cjurkiewicz7t@gizmodo.com', '7981793479');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Herbie', 'Filkov', 'hfilkov7u@rakuten.co.jp', '9656310608');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Saw', 'Dayly', 'sdayly7v@squarespace.com', '3486203121');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Elita', 'D''Ugo', 'edugo7w@rediff.com', '2499126395');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Garnet', 'Lace', 'glace7x@ted.com', '8765428471');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Stearne', 'Mycroft', 'smycroft7y@google.cn', '5291274171');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Cello', 'Bruna', 'cbruna7z@gravatar.com', '6999723607');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Willamina', 'Dargan', 'wdargan80@dyndns.org', '7467942095');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Brandon', 'Domelaw', 'bdomelaw81@exblog.jp', '1085757259');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Amalie', 'Bernardez', 'abernardez82@cbc.ca', '4763687497');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Barnie', 'Lodge', 'blodge83@123-reg.co.uk', '6156591632');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Emalee', 'Mulvihill', 'emulvihill84@google.pl', '9606246769');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Silva', 'Leacock', 'sleacock85@nationalgeographic.com', '4421519206');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Carrissa', 'Brimelow', 'cbrimelow86@stanford.edu', '5472253295');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Carree', 'Ferriby', 'cferriby87@gov.uk', '3086707413');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Vite', 'Shorton', 'vshorton88@bravesites.com', '1872896339');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Rachael', 'Theunissen', 'rtheunissen89@jugem.jp', '8437095049');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Cleon', 'Jonke', 'cjonke8a@upenn.edu', '5635519911');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Arabele', 'Sutherel', 'asutherel8b@thetimes.co.uk', '2896673460');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Claudine', 'Carss', 'ccarss8c@people.com.cn', '3939885906');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Faun', 'Dicken', 'fdicken8d@biblegateway.com', '8058778487');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Allyson', 'Orbon', 'aorbon8e@noaa.gov', '7477909999');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Dorelle', 'Oldale', 'doldale8f@sun.com', '8761915733');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Aluino', 'Thay', 'athay8g@drupal.org', '9213505069');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Rowen', 'Pavinese', 'rpavinese8h@amazon.co.jp', '8566081187');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Caralie', 'Sandes', 'csandes8i@intel.com', '6352770271');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Andrea', 'Blum', 'ablum8j@is.gd', '7214060037');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Shelton', 'Morson', 'smorson8k@ca.gov', '7408427266');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Prentiss', 'Escalera', 'pescalera8l@cam.ac.uk', '2213015191');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Fitz', 'Fitzsymon', 'ffitzsymon8m@live.com', '9863191012');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Amii', 'Ambrogioni', 'aambrogioni8n@gnu.org', '7447879641');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Johann', 'Boken', 'jboken8o@homestead.com', '9966226103');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Carlie', 'Hutcheson', 'chutcheson8p@istockphoto.com', '1122201634');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Verna', 'McAvaddy', 'vmcavaddy8q@engadget.com', '1064380858');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Trudie', 'Abbatucci', 'tabbatucci8r@chicagotribune.com', '5281088512');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Cristina', 'Rewbottom', 'crewbottom8s@globo.com', '4169835623');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Kyle', 'Kiernan', 'kkiernan8t@yahoo.com', '8405407139');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Lavinie', 'Gronous', 'lgronous8u@angelfire.com', '7366673784');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Ring', 'Mallinder', 'rmallinder8v@amazon.de', '2619309132');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Horacio', 'Mannion', 'hmannion8w@statcounter.com', '1201772153');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Lucilia', 'Beevens', 'lbeevens8x@zdnet.com', '9634452515');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Rory', 'Mound', 'rmound8y@fda.gov', '4838051137');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Wilton', 'McCart', 'wmccart8z@about.com', '7901163322');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Ruthann', 'Duiguid', 'rduiguid90@wordpress.org', '1015728239');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Hamlin', 'Kalberer', 'hkalberer91@cnet.com', '6463469102');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Zach', 'Uglow', 'zuglow92@dagondesign.com', '4755201868');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Tedda', 'Box', 'tbox93@google.com', '2535786970');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Brucie', 'Dixey', 'bdixey94@blog.com', '3719477272');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Chadd', 'Morch', 'cmorch95@soup.io', '9451347201');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Urbano', 'Calabry', 'ucalabry96@bloomberg.com', '4021604753');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Hubey', 'Byk', 'hbyk97@mail.ru', '8308811498');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Billie', 'Adney', 'badney98@phpbb.com', '5043043831');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Corrinne', 'Mawford', 'cmawford99@amazon.co.uk', '2798364007');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Corly', 'Clines', 'cclines9a@vinaora.com', '7303308554');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Adelina', 'Daft', 'adaft9b@rakuten.co.jp', '2902213139');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Titus', 'Beere', 'tbeere9c@msn.com', '2491401603');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Oliver', 'Dubs', 'odubs9d@delicious.com', '9578122360');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Mahala', 'Hyder', 'mhyder9e@chronoengine.com', '7709673907');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Priscella', 'Josh', 'pjosh9f@army.mil', '6976003439');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Gerik', 'Dursley', 'gdursley9g@altervista.org', '9718113470');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Luke', 'Heberden', 'lheberden9h@huffingtonpost.com', '7314521883');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Marketa', 'Roddan', 'mroddan9i@cbc.ca', '4587706624');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Tammie', 'Bartosch', 'tbartosch9j@youku.com', '6916392842');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Olivette', 'Wildish', 'owildish9k@mail.ru', '5145815809');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Wyatan', 'Gumley', 'wgumley9l@miitbeian.gov.cn', '6055088040');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Tally', 'Wenger', 'twenger9m@biglobe.ne.jp', '7761593117');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Agathe', 'Batterson', 'abatterson9n@xinhuanet.com', '6924196475');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Tam', 'Steuhlmeyer', 'tsteuhlmeyer9o@pcworld.com', '1571613073');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Izzy', 'Redmain', 'iredmain9p@columbia.edu', '4873324746');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Bria', 'Allatt', 'ballatt9q@icq.com', '8072142707');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Donnamarie', 'Fiddyment', 'dfiddyment9r@google.com.br', '7178873444');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Leif', 'Ferrarotti', 'lferrarotti9s@pcworld.com', '3147858487');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Lynna', 'De Hooge', 'ldehooge9t@chronoengine.com', '6407627773');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Dionis', 'Risebrow', 'drisebrow9u@ustream.tv', '5226644878');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Aimee', 'Brunon', 'abrunon9v@php.net', '8538969307');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Ansell', 'Getty', 'agetty9w@live.com', '8064975769');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Lennie', 'Ong', 'long9x@whitehouse.gov', '7835076865');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Margarita', 'Gonnard', 'mgonnard9y@unc.edu', '4667123424');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Duffie', 'Winram', 'dwinram9z@disqus.com', '9976542110');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Vanny', 'Medcalf', 'vmedcalfa0@time.com', '8159065329');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Bowie', 'Roseveare', 'brosevearea1@vk.com', '3391697470');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Clevie', 'Rugge', 'cruggea2@yale.edu', '7332767638');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Bendite', 'Cossins', 'bcossinsa3@acquirethisname.com', '8585573951');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Rosette', 'Franc', 'rfranca4@meetup.com', '7887547722');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Levon', 'Hosby', 'lhosbya5@patch.com', '6305486331');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Ardith', 'Agutter', 'aaguttera6@nytimes.com', '9538501355');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Krisha', 'Sevitt', 'ksevitta7@chronoengine.com', '6707427544');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Lorain', 'Murricanes', 'lmurricanesa8@hp.com', '4242070011');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Rocky', 'Dobbs', 'rdobbsa9@ustream.tv', '3994145829');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Chantal', 'Galvin', 'cgalvinaa@symantec.com', '7532594421');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Gunner', 'MacKimm', 'gmackimmab@prnewswire.com', '5629294314');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Brigg', 'Hatherleigh', 'bhatherleighac@admin.ch', '2925100453');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Yorke', 'Haughton', 'yhaughtonad@mysql.com', '5803722033');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Dulcia', 'Hencke', 'dhenckeae@zimbio.com', '6165791058');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Farrah', 'Jaegar', 'fjaegaraf@oakley.com', '3138449342');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Hortensia', 'Lethibridge', 'hlethibridgeag@webs.com', '5725028371');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Jody', 'Tunnacliffe', 'jtunnacliffeah@aol.com', '6783283822');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Eduard', 'Purple', 'epurpleai@go.com', '2959293549');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Salvidor', 'Aslet', 'sasletaj@prweb.com', '7646632452');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Binnie', 'Maccaddie', 'bmaccaddieak@imageshack.us', '7505092557');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Georgie', 'Greenhough', 'ggreenhoughal@cbslocal.com', '5079840465');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Redd', 'Liddiatt', 'rliddiattam@typepad.com', '7466261963');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Dyanne', 'Sesser', 'dsesseran@google.com.au', '5224763976');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Freemon', 'Kenewel', 'fkenewelao@seesaa.net', '2907016001');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Marris', 'MacDonnell', 'mmacdonnellap@linkedin.com', '7355095253');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Patrizius', 'Copley', 'pcopleyaq@businesswire.com', '9632977593');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Randy', 'Mellor', 'rmellorar@de.vu', '1417231788');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Stevana', 'Audenis', 'saudenisas@51.la', '1734227482');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Gerda', 'Branch', 'gbranchat@spiegel.de', '8525513439');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Melany', 'Spurier', 'mspurierau@hatena.ne.jp', '1276938615');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Butch', 'Meaddowcroft', 'bmeaddowcroftav@prweb.com', '3438647856');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Mella', 'Rickerby', 'mrickerbyaw@businessinsider.com', '1758114807');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Hamnet', 'Pietesch', 'hpieteschax@latimes.com', '6268978785');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Eldon', 'Chaim', 'echaimay@cyberchimps.com', '6168033844');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Claiborne', 'Parcall', 'cparcallaz@ifeng.com', '3807511163');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Jena', 'Stelfox', 'jstelfoxb0@newsvine.com', '7933582097');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Mureil', 'Hordle', 'mhordleb1@patch.com', '3247118454');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Merrielle', 'Bothams', 'mbothamsb2@earthlink.net', '9027875123');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Abigael', 'Pettiward', 'apettiwardb3@technorati.com', '2907404028');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Orland', 'Mountlow', 'omountlowb4@tripod.com', '3102457143');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Jeanie', 'Witchalls', 'jwitchallsb5@theguardian.com', '7417464252');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Bartholomeo', 'Durston', 'bdurstonb6@meetup.com', '1322382817');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Finley', 'Breen', 'fbreenb7@walmart.com', '9794216720');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Devon', 'MacKean', 'dmackeanb8@loc.gov', '9566713560');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('See', 'Bolgar', 'sbolgarb9@dell.com', '1887658576');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Trent', 'Morforth', 'tmorforthba@slashdot.org', '8422046871');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Zechariah', 'Egleton', 'zegletonbb@goo.ne.jp', '6442702936');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Karolina', 'Childrens', 'kchildrensbc@skyrock.com', '2858561359');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Gabriell', 'Kalaher', 'gkalaherbd@gmpg.org', '6885709407');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Kenny', 'Severns', 'ksevernsbe@icio.us', '9703671531');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Carol', 'Gorrissen', 'cgorrissenbf@accuweather.com', '9366006769');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Annabella', 'McPhaden', 'amcphadenbg@usda.gov', '9712663229');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Junie', 'Corneil', 'jcorneilbh@chronoengine.com', '3313758909');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Leyla', 'Nucciotti', 'lnucciottibi@opera.com', '6551021400');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Glenna', 'Perl', 'gperlbj@networkadvertising.org', '8886496524');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Stavro', 'Dominy', 'sdominybk@bloomberg.com', '3776686731');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Reinald', 'Mulchrone', 'rmulchronebl@cyberchimps.com', '6525983396');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Rhetta', 'Bonnavant', 'rbonnavantbm@storify.com', '1037570646');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Roana', 'Reedman', 'rreedmanbn@etsy.com', '1041824736');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Reid', 'Edmeads', 'redmeadsbo@slashdot.org', '4128851161');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Bernardina', 'Gooding', 'bgoodingbp@photobucket.com', '8122386307');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Irita', 'Radki', 'iradkibq@nytimes.com', '7025081306');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Leena', 'Draper', 'ldraperbr@theguardian.com', '7273258360');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Leonardo', 'Cordall', 'lcordallbs@trellian.com', '7255128629');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Morganne', 'Embury', 'memburybt@msn.com', '3273880919');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Kelsy', 'Pomfrett', 'kpomfrettbu@miibeian.gov.cn', '9495476266');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Zebulon', 'Degan', 'zdeganbv@ehow.com', '8819817905');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Audry', 'Ochterlonie', 'aochterloniebw@aboutads.info', '6729873627');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Thoma', 'd'' Elboux', 'tdelbouxbx@ibm.com', '3084254767');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Neale', 'Kulic', 'nkulicby@ihg.com', '2836461863');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Marne', 'Thayre', 'mthayrebz@howstuffworks.com', '7207328210');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Aleta', 'Karslake', 'akarslakec0@mapy.cz', '3618159255');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Angie', 'Brahams', 'abrahamsc1@prweb.com', '2467608860');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Sandor', 'Jaskowicz', 'sjaskowiczc2@discovery.com', '3034840574');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Riccardo', 'Harrill', 'rharrillc3@google.pl', '1489196408');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Diann', 'Bouchard', 'dbouchardc4@house.gov', '9975519143');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Glenda', 'McKernan', 'gmckernanc5@eepurl.com', '6886176638');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Dee dee', 'Pithie', 'dpithiec6@nps.gov', '6358106270');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Rossy', 'Knewstubb', 'rknewstubbc7@trellian.com', '4576418342');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Lorelle', 'Van''t Hoff', 'lvanthoffc8@i2i.jp', '4235548896');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Dyanna', 'Marc', 'dmarcc9@scribd.com', '3223825521');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Anetta', 'Imorts', 'aimortsca@army.mil', '9388783667');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Flossi', 'Craven', 'fcravencb@home.pl', '6207435011');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Collete', 'Styan', 'cstyancc@unblog.fr', '8995823534');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Shandeigh', 'Thormann', 'sthormanncd@360.cn', '6796860165');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Sarita', 'Molan', 'smolance@theglobeandmail.com', '5724321604');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Kliment', 'Leithgoe', 'kleithgoecf@japanpost.jp', '7992340401');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Reina', 'Mackelworth', 'rmackelworthcg@drupal.org', '4752588009');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Suzy', 'Shorie', 'sshoriech@blogs.com', '3066770961');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Gena', 'Baistow', 'gbaistowci@youtu.be', '9538225446');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Silvio', 'Hanster', 'shanstercj@yellowpages.com', '2688015847');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Adelaide', 'Pietruszewicz', 'apietruszewiczck@thetimes.co.uk', '1544109306');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Nataniel', 'Rotge', 'nrotgecl@hexun.com', '3042785240');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Linus', 'Matyas', 'lmatyascm@ehow.com', '9221157646');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Leoline', 'Wicks', 'lwickscn@ezinearticles.com', '7407688287');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Artemis', 'Storton', 'astortonco@typepad.com', '4449024066');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Daryl', 'Shackel', 'dshackelcp@gravatar.com', '1072198598');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Adel', 'Scartifield', 'ascartifieldcq@elegantthemes.com', '1316827418');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Anna', 'Boyall', 'aboyallcr@naver.com', '4614070522');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Deane', 'Veart', 'dveartcs@answers.com', '6992420261');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Stillmann', 'Charles', 'scharlesct@mozilla.org', '7758326347');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Lorens', 'Brewitt', 'lbrewittcu@google.com', '4936363109');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Kerby', 'Breen', 'kbreencv@unc.edu', '7017551804');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Hazlett', 'Hayer', 'hhayercw@hibu.com', '6444176788');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Rozanna', 'Weiser', 'rweisercx@mapy.cz', '8145985361');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Cecilia', 'de Bullion', 'cdebullioncy@nbcnews.com', '5378100821');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Genvieve', 'O''Hearn', 'gohearncz@si.edu', '6952720110');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Sigismund', 'Davydoch', 'sdavydochd0@springer.com', '4821792176');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Wilton', 'McAviy', 'wmcaviyd1@weebly.com', '5543795504');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Mallorie', 'Sinnett', 'msinnettd2@dropbox.com', '5006760189');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Bellina', 'Moulin', 'bmoulind3@independent.co.uk', '8001311420');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Thornton', 'Frobisher', 'tfrobisherd4@telegraph.co.uk', '9317385990');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Stanwood', 'Lackemann', 'slackemannd5@woothemes.com', '8812013514');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Auria', 'Arnott', 'aarnottd6@ezinearticles.com', '1405110616');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Antonella', 'Matthisson', 'amatthissond7@amazon.de', '2869304029');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Way', 'Pfaff', 'wpfaffd8@discuz.net', '6232928072');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Halimeda', 'Tutill', 'htutilld9@sitemeter.com', '2327466902');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Davis', 'Louca', 'dloucada@bigcartel.com', '4738723267');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Quintana', 'Reven', 'qrevendb@google.com.br', '6991423816');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Hally', 'Redish', 'hredishdc@mac.com', '4032445646');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Red', 'Ouver', 'rouverdd@businessinsider.com', '5915906755');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Jarrad', 'Fuxman', 'jfuxmande@google.de', '7747415691');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Aimee', 'Wellman', 'awellmandf@multiply.com', '5293134593');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Tate', 'Headly', 'theadlydg@spiegel.de', '3536066699');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Rodrigo', 'Conner', 'rconnerdh@hibu.com', '9491123323');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Gabie', 'Meiklem', 'gmeiklemdi@gmpg.org', '6584174916');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Henrieta', 'Dubock', 'hdubockdj@whitehouse.gov', '7207602003');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Henrik', 'Shevlin', 'hshevlindk@jalbum.net', '3507816122');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Ameline', 'Bradburne', 'abradburnedl@xrea.com', '7011925939');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Vyky', 'Hancell', 'vhancelldm@com.com', '2611480201');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Marilee', 'Cayle', 'mcayledn@economist.com', '8431407720');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Trudy', 'Cogdell', 'tcogdelldo@ocn.ne.jp', '4833429407');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Ara', 'Getcliffe', 'agetcliffedp@wunderground.com', '2269328043');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Diego', 'Gyenes', 'dgyenesdq@economist.com', '7426982842');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Luce', 'Hayhurst', 'lhayhurstdr@nydailynews.com', '1577732335');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Sherwin', 'D''Ambrogio', 'sdambrogiods@webeden.co.uk', '2215045407');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Mariel', 'Corriea', 'mcorrieadt@bbc.co.uk', '5424057016');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Bev', 'Belamy', 'bbelamydu@jimdo.com', '1867486179');
+insert into Customer (CustFName, CustLName, CustEmail, CustPhone) values ('Gordon', 'Shenton', 'gshentondv@dmoz.org', '3043333293');
+
+
+
+
+insert into Ingredients (IngName) values ('Sugar');
+insert into Ingredients (IngName) values ('Salt');
+insert into Ingredients (IngName) values ('Flour');
+insert into Ingredients (IngName) values ('Chocolate Chips');
+insert into Ingredients (IngName) values ('Eggs');
+insert into Ingredients (IngName) values ('Water');
+insert into Ingredients (IngName) values ('Butter');
+insert into Ingredients (IngName) values ('Baking Soda');
+insert into Ingredients (IngName) values ('Cinnamon');
+insert into Ingredients (IngName) values ('Macademia Nuts');
+insert into Ingredients (IngName) values ('White Chocolate Chips');
+insert into Ingredients (IngName) values ('Vanilla');
+insert into Ingredients (IngName) values ('Vanilla Icing');
+insert into Ingredients (IngName) values ('Chocolate Icing');
+insert into Ingredients (IngName) values ('Ginger');
+insert into Ingredients (IngName) values ('Brown Sugar');
+insert into Ingredients (IngName) values ('Rainbow Sprinkles');
+insert into Ingredients (IngName) values ('Coconut');
+insert into Ingredients (IngName) values ('Vegetable Oil');
+
+
+
+insert into ProductTypes (PTypeDesc) values ('Cookie');
+insert into ProductTypes (PTypeDesc) values ('Coffee');
+insert into ProductTypes (PTypeDesc) values ('Bottled Water');
+
+
+
+insert into Products (ProductName, PTypeID, Price) values ('Chocolate Chip', 1, 2.00);
+insert into Products (ProductName, PTypeID, Price) values ('Sugar', 1, 2.00);
+insert into Products (ProductName, PTypeID, Price) values ('Iced Choc Chip', 1, 3.00);
+insert into Products (ProductName, PTypeID, Price) values ('Vnla Icng Sgr', 1, 3.00);
+insert into Products (ProductName, PTypeID, Price) values ('Ginger Snap', 1, 1.00);
+insert into Products (ProductName, PTypeID, Price) values ('Chocolate Swirl', 1, 4.00);
+insert into Products (ProductName, PTypeID, Price) values ('Birthday Sugar', 1, 5.00);
+insert into Products (ProductName, PTypeID, Price) values ('Vnla Coconut', 1, 4.00);
+insert into Products (ProductName, PTypeID, Price) values ('Wte Choc MacNut', 1, 3.00);
+insert into Products (ProductName, PTypeID, Price) values ('Choc Icng Sugar', 1, 3.50);
+insert into Products (ProductName, PTypeID, Price) values ('Wte Choc MacNut', 1, 3.00);
+insert into Products (ProductName, PTypeID, Price) values ('Choc Icng Sugr', 1, 4.00);
+insert into Products (ProductName, PTypeID, Price) values ('Bottled Water', 3, 2.50);
+insert into Products (ProductName, PTypeID, Price) values ('Coffee', 2, 2.25);
+
+
+
+insert into Recipe (IngID, ProductID, Measure, Quantity) values (100, 2000, 0.10, 24) 
+insert into Recipe (IngID, ProductID, Measure, Quantity) values (105, 2000, 2.20, 24) 
+insert into Recipe (IngID, ProductID, Measure, Quantity) values (106, 2000, 3.50, 24) 
+insert into Recipe (IngID, ProductID, Measure, Quantity) values (103, 2000, 8.00, 24) 
+insert into Recipe (IngID, ProductID, Measure, Quantity) values (104, 2000, 7.50, 24)
+
+insert into Recipe (IngID, ProductID, Measure, Quantity) values (100, 2001, 0.10, 24)
+insert into Recipe (IngID, ProductID, Measure, Quantity) values (105, 2001, 2.20, 24)
+insert into Recipe (IngID, ProductID, Measure, Quantity) values (106, 2001, 3.50, 24)
+insert into Recipe (IngID, ProductID, Measure, Quantity) values (111, 2001, 8.00, 24)
+insert into Recipe (IngID, ProductID, Measure, Quantity) values (104, 2001, 7.50, 24) 
+
+insert into Recipe (IngID, ProductID, Measure, Quantity) values (100, 2002, 0.10, 12) 
+insert into Recipe (IngID, ProductID, Measure, Quantity) values (105, 2002, 2.20, 12) 
+insert into Recipe (IngID, ProductID, Measure, Quantity) values (106, 2002, 3.50, 12) 
+insert into Recipe (IngID, ProductID, Measure, Quantity) values (111, 2002, 8.00, 12) 
+insert into Recipe (IngID, ProductID, Measure, Quantity) values (104, 2002, 7.50, 12) 
+insert into Recipe (IngID, ProductID, Measure, Quantity) values (112, 2002, 5.00, 12) 
+insert into Recipe (IngID, ProductID, Measure, Quantity) values (103, 2002, 2.50, 12)
+
+insert into Recipe (IngID, ProductID, Measure, Quantity) values (100, 2003, 0.10, 24)
+insert into Recipe (IngID, ProductID, Measure, Quantity) values (105, 2003, 2.20, 24)
+insert into Recipe (IngID, ProductID, Measure, Quantity) values (106, 2003, 3.50, 24)
+insert into Recipe (IngID, ProductID, Measure, Quantity) values (111, 2003, 8.00, 24)
+insert into Recipe (IngID, ProductID, Measure, Quantity) values (104, 2003, 7.50, 24) 
+insert into Recipe (IngID, ProductID, Measure, Quantity) values (112, 2003, 5.00, 24) 
+																			 
+insert into Recipe (IngID, ProductID, Measure, Quantity) values (100, 2004, 0.10, 36)
+insert into Recipe (IngID, ProductID, Measure, Quantity) values (105, 2004, 2.20, 36)
+insert into Recipe (IngID, ProductID, Measure, Quantity) values (106, 2004, 3.50, 36)
+insert into Recipe (IngID, ProductID, Measure, Quantity) values (111, 2004, 4.00, 36)
+insert into Recipe (IngID, ProductID, Measure, Quantity) values (104, 2004, 7.50, 36) 
+insert into Recipe (IngID, ProductID, Measure, Quantity) values (114, 2004, 5.00, 36) 
+
+insert into Recipe (IngID, ProductID, Measure, Quantity) values (100, 2005, 0.10, 24)
+insert into Recipe (IngID, ProductID, Measure, Quantity) values (105, 2005, 2.20, 24)
+insert into Recipe (IngID, ProductID, Measure, Quantity) values (106, 2005, 3.50, 24)
+insert into Recipe (IngID, ProductID, Measure, Quantity) values (111, 2005, 4.00, 24)
+insert into Recipe (IngID, ProductID, Measure, Quantity) values (104, 2005, 7.50, 24) 
+insert into Recipe (IngID, ProductID, Measure, Quantity) values (103, 2005, 5.00, 24)
+insert into Recipe (IngID, ProductID, Measure, Quantity) values (118, 2005, .00, 24) 
+
+insert into Recipe (IngID, ProductID, Measure, Quantity) values (100, 2006, 0.10, 12)
+insert into Recipe (IngID, ProductID, Measure, Quantity) values (105, 2006, 2.20, 12)
+insert into Recipe (IngID, ProductID, Measure, Quantity) values (106, 2006, 3.50, 12)
+insert into Recipe (IngID, ProductID, Measure, Quantity) values (111, 2006, 4.00, 12)
+insert into Recipe (IngID, ProductID, Measure, Quantity) values (104, 2006, 7.50, 12) 
+insert into Recipe (IngID, ProductID, Measure, Quantity) values (112, 2006, 5.00, 12) 
+insert into Recipe (IngID, ProductID, Measure, Quantity) values (116, 2006, 2.00, 12) 
+
+insert into Recipe (IngID, ProductID, Measure, Quantity) values (100, 2007, 0.10, 36)
+insert into Recipe (IngID, ProductID, Measure, Quantity) values (105, 2007, 2.20, 36)
+insert into Recipe (IngID, ProductID, Measure, Quantity) values (106, 2007, 3.50, 36)
+insert into Recipe (IngID, ProductID, Measure, Quantity) values (111, 2007, 4.00, 36)
+insert into Recipe (IngID, ProductID, Measure, Quantity) values (104, 2007, 7.50, 36) 
+insert into Recipe (IngID, ProductID, Measure, Quantity) values (117, 2007, 5.00, 36)
+insert into Recipe (IngID, ProductID, Measure, Quantity) values (107, 2007, 4.00, 36) 
+
+insert into Recipe (IngID, ProductID, Measure, Quantity) values (100, 2008, 0.10, 24) 
+insert into Recipe (IngID, ProductID, Measure, Quantity) values (105, 2008, 2.20, 24) 
+insert into Recipe (IngID, ProductID, Measure, Quantity) values (106, 2008, 3.50, 24) 
+insert into Recipe (IngID, ProductID, Measure, Quantity) values (110, 2008, 4.00, 24) 
+insert into Recipe (IngID, ProductID, Measure, Quantity) values (104, 2008, 6.50, 24)
+insert into Recipe (IngID, ProductID, Measure, Quantity) values (109, 2008, 5.00, 24)
+																			 
+insert into Recipe (IngID, ProductID, Measure, Quantity) values (100, 2009, 0.10, 12)
+insert into Recipe (IngID, ProductID, Measure, Quantity) values (105, 2009, 2.20, 12)
+insert into Recipe (IngID, ProductID, Measure, Quantity) values (106, 2009, 3.50, 12)
+insert into Recipe (IngID, ProductID, Measure, Quantity) values (111, 2009, 4.00, 12)
+insert into Recipe (IngID, ProductID, Measure, Quantity) values (104, 2009, 7.50, 12) 
+insert into Recipe (IngID, ProductID, Measure, Quantity) values (113, 2009, 3.00, 12) 
+													
+
+insert into Orders (CustomerID, OrderDate) values (3000,'2019-03-31 20:30:34');
+insert into Orders (CustomerID, OrderDate) values (3000,'2019-02-23 18:47:32');
+insert into Orders (CustomerID, OrderDate) values (3001,'2019-09-04 23:36:35');
+insert into Orders (CustomerID, OrderDate) values (3001,'2019-05-21 19:32:27');
+insert into Orders (CustomerID, OrderDate) values (3003,'2019-07-24 14:04:14');
+insert into Orders (CustomerID, OrderDate) values (3004,'2019-04-17 19:17:08');
+insert into Orders (CustomerID, OrderDate) values (3005,'2019-08-26 01:56:19');
+insert into Orders (CustomerID, OrderDate) values (3006,'2019-01-25 14:57:10');
+insert into Orders (CustomerID, OrderDate) values (3007,'2019-03-06 23:48:18');
+insert into Orders (CustomerID, OrderDate) values (3008,'2018-11-24 18:14:07');
+insert into Orders (CustomerID, OrderDate) values (3009,'2019-10-21 02:48:18');
+insert into Orders (CustomerID, OrderDate) values (3011,'2018-12-19 01:46:16');
+insert into Orders (CustomerID, OrderDate) values (3012,'2019-08-13 16:31:26');
+insert into Orders (CustomerID, OrderDate) values (3013,'2018-12-25 21:43:07');
+insert into Orders (CustomerID, OrderDate) values (3020,'2019-04-17 19:56:03');
+insert into Orders (CustomerID, OrderDate) values (3020,'2019-01-09 04:02:20');
+insert into Orders (CustomerID, OrderDate) values (3020,'2018-12-15 16:20:30');
+insert into Orders (CustomerID, OrderDate) values (3021,'2019-05-16 09:40:31');
+insert into Orders (CustomerID, OrderDate) values (3022,'2019-02-20 22:38:33');
+insert into Orders (CustomerID, OrderDate) values (3023,'2019-10-23 06:15:22');
+insert into Orders (CustomerID, OrderDate) values (3024,'2019-10-09 01:46:07');
+insert into Orders (CustomerID, OrderDate) values (3025,'2019-01-19 18:52:52');
+insert into Orders (CustomerID, OrderDate) values (3026,'2019-11-04 13:01:40');
+insert into Orders (CustomerID, OrderDate) values (3027,'2019-06-01 22:55:45');
+insert into Orders (CustomerID, OrderDate) values (3027,'2019-09-12 15:35:29');
+insert into Orders (CustomerID, OrderDate) values (3030,'2019-10-08 21:23:47');
+insert into Orders (CustomerID, OrderDate) values (3031,'2019-07-08 02:13:07');
+insert into Orders (CustomerID, OrderDate) values (3032,'2019-02-12 16:58:03');
+insert into Orders (CustomerID, OrderDate) values (3033,'2019-09-21 11:28:06');
+insert into Orders (CustomerID, OrderDate) values (3034,'2019-06-21 05:19:47');
+insert into Orders (CustomerID, OrderDate) values (3040,'2019-03-12 22:48:49');
+insert into Orders (CustomerID, OrderDate) values (3040,'2019-01-28 00:11:39');
+insert into Orders (CustomerID, OrderDate) values (3041,'2019-01-04 00:09:23');
+insert into Orders (CustomerID, OrderDate) values (3042,'2019-08-06 04:42:56');
+insert into Orders (CustomerID, OrderDate) values (3043,'2019-02-15 18:26:45');
+insert into Orders (CustomerID, OrderDate) values (3044,'2018-12-10 07:41:26');
+insert into Orders (CustomerID, OrderDate) values (3045,'2019-08-22 05:17:53');
+insert into Orders (CustomerID, OrderDate) values (3046,'2019-05-06 14:32:36');
+insert into Orders (CustomerID, OrderDate) values (3047,'2019-01-09 04:11:38');
+insert into Orders (CustomerID, OrderDate) values (3048,'2018-12-23 01:45:13');
+insert into Orders (CustomerID, OrderDate) values (3049,'2019-01-12 13:58:39');
+insert into Orders (CustomerID, OrderDate) values (3050,'2019-10-30 03:03:38');
+insert into Orders (CustomerID, OrderDate) values (3051,'2019-04-15 04:37:03');
+insert into Orders (CustomerID, OrderDate) values (3051,'2019-04-21 07:43:26');
+insert into Orders (CustomerID, OrderDate) values (3053,'2019-02-02 12:16:19');
+insert into Orders (CustomerID, OrderDate) values (3054,'2018-12-03 00:58:40');
+insert into Orders (CustomerID, OrderDate) values (3055,'2019-10-17 04:37:40');
+insert into Orders (CustomerID, OrderDate) values (3056,'2019-10-12 08:28:20');
+insert into Orders (CustomerID, OrderDate) values (3057,'2019-02-09 23:05:56');
+insert into Orders (CustomerID, OrderDate) values (3058,'2019-01-21 21:15:47');
+insert into Orders (CustomerID, OrderDate) values (3059,'2019-07-23 12:11:38');
+insert into Orders (CustomerID, OrderDate) values (3060,'2019-09-12 08:17:09');
+insert into Orders (CustomerID, OrderDate) values (3061,'2018-11-28 01:58:37');
+insert into Orders (CustomerID, OrderDate) values (3062,'2019-09-16 14:19:27');
+insert into Orders (CustomerID, OrderDate) values (3063,'2019-10-11 00:52:08');
+insert into Orders (CustomerID, OrderDate) values (3064,'2019-04-24 02:44:15');
+insert into Orders (CustomerID, OrderDate) values (3065,'2019-06-11 17:10:05');
+insert into Orders (CustomerID, OrderDate) values (3066,'2019-06-05 14:33:07');
+insert into Orders (CustomerID, OrderDate) values (3067,'2019-09-01 05:38:54');
+insert into Orders (CustomerID, OrderDate) values (3068,'2019-09-17 03:44:58');
+insert into Orders (CustomerID, OrderDate) values (3068,'2019-02-03 10:52:53');
+insert into Orders (CustomerID, OrderDate) values (3070,'2019-09-16 15:37:51');
+insert into Orders (CustomerID, OrderDate) values (3071,'2019-06-30 16:10:35');
+insert into Orders (CustomerID, OrderDate) values (3072,'2019-06-04 01:13:32');
+insert into Orders (CustomerID, OrderDate) values (3073,'2019-10-28 22:23:27');
+insert into Orders (CustomerID, OrderDate) values (3074,'2019-08-25 01:10:31');
+insert into Orders (CustomerID, OrderDate) values (3075,'2019-04-02 05:39:12');
+insert into Orders (CustomerID, OrderDate) values (3075,'2019-09-01 01:29:55');
+insert into Orders (CustomerID, OrderDate) values (3076,'2018-11-24 12:52:44');
+insert into Orders (CustomerID, OrderDate) values (3077,'2018-12-28 04:47:15');
+insert into Orders (CustomerID, OrderDate) values (3078,'2019-07-08 04:24:58');
+insert into Orders (CustomerID, OrderDate) values (3079,'2019-03-07 03:26:23');
+insert into Orders (CustomerID, OrderDate) values (3080,'2019-10-14 18:07:26');
+insert into Orders (CustomerID, OrderDate) values (3081,'2018-12-16 03:57:19');
+insert into Orders (CustomerID, OrderDate) values (3082,'2019-09-26 15:58:10');
+insert into Orders (CustomerID, OrderDate) values (3086,'2019-09-15 23:15:56');
+insert into Orders (CustomerID, OrderDate) values (3086,'2019-07-17 15:23:37');
+insert into Orders (CustomerID, OrderDate) values (3086,'2019-03-05 00:59:32');
+insert into Orders (CustomerID, OrderDate) values (3086,'2019-08-26 14:31:42');
+insert into Orders (CustomerID, OrderDate) values (3086,'2019-02-12 05:53:06');
+insert into Orders (CustomerID, OrderDate) values (3086,'2019-01-18 01:17:29');
+insert into Orders (CustomerID, OrderDate) values (3086,'2019-08-19 13:58:22');
+insert into Orders (CustomerID, OrderDate) values (3086,'2019-08-23 14:00:56');
+insert into Orders (CustomerID, OrderDate) values (3090,'2019-05-30 03:19:25');
+insert into Orders (CustomerID, OrderDate) values (3090,'2019-03-11 23:52:21');
+insert into Orders (CustomerID, OrderDate) values (3090,'2019-09-20 08:35:38');
+insert into Orders (CustomerID, OrderDate) values (3090,'2019-06-15 16:02:39');
+insert into Orders (CustomerID, OrderDate) values (3090,'2019-02-19 04:52:21');
+insert into Orders (CustomerID, OrderDate) values (3090,'2019-09-02 09:50:45');
+insert into Orders (CustomerID, OrderDate) values (3090,'2019-03-17 19:18:08');
+insert into Orders (CustomerID, OrderDate) values (3090,'2019-01-31 23:28:01');
+insert into Orders (CustomerID, OrderDate) values (3092,'2019-04-26 12:30:34');
+insert into Orders (CustomerID, OrderDate) values (3092,'2019-09-08 02:33:58');
+insert into Orders (CustomerID, OrderDate) values (3092,'2019-08-30 11:36:09');
+insert into Orders (CustomerID, OrderDate) values (3092,'2019-06-22 13:25:30');
+insert into Orders (CustomerID, OrderDate) values (3094,'2019-06-06 14:43:02');
+insert into Orders (CustomerID, OrderDate) values (3094,'2019-08-27 00:20:58');
+insert into Orders (CustomerID, OrderDate) values (3099,'2019-03-29 01:27:26');
+insert into Orders (CustomerID, OrderDate) values (3099,'2018-12-03 07:28:37');
+insert into Orders (CustomerID, OrderDate) values (3099,'2019-05-09 01:14:47');
+
+insert into Promotions (PromoDesc, DiscountAmt) values ('Student', .15);
+insert into Promotions (PromoDesc, DiscountAmt) values ('Family', .20);
+insert into Promotions (PromoDesc, DiscountAmt) values ('Valentines Day', .10);
+insert into Promotions (PromoDesc, DiscountAmt) values ('Halloween', .10);
+insert into Promotions (PromoDesc, DiscountAmt) values ('Birthday', .10);
+insert into Promotions (PromoDesc, DiscountAmt) values ('Christmas', .20);
+insert into Promotions (PromoDesc, DiscountAmt) values ('Civil Servant', .25);
+insert into Promotions (PromoDesc, DiscountAmt) values ('Teacher', .25);
+insert into Promotions (PromoDesc, DiscountAmt) values ('End of Month', .05);
+insert into Promotions (PromoDesc, DiscountAmt) values ('July 4', .15);
+insert into Promotions (PromoDesc, DiscountAmt) values ('Corporate Discount', .40);
+insert into Promotions (PromoDesc, DiscountAmt) values ('New Customer', .30);
+insert into Promotions (PromoDesc, DiscountAmt) values ('Customer Referral', .25);
+insert into Promotions (PromoDesc, DiscountAmt) values ('Employee Incentive', .25);
+insert into Promotions (PromoDesc, DiscountAmt) values ('National Cookie Day', .15);
+insert into Promotions (PromoDesc, DiscountAmt) values ('Birthday Employee', .50);
+insert into Promotions (PromoDesc, DiscountAmt) values ('Manager', .45);
+insert into Promotions (PromoDesc, DiscountAmt) values ('Customer Comp', .75);
+insert into Promotions (PromoDesc, DiscountAmt) values ('Escalation Management', .80);
+
+
+insert into OrderItems (OrderID, ProductID, PromoID, Quantity, Price) values (519, 2005, 203, 2, '$43.85');
+insert into OrderItems (OrderID, ProductID, PromoID, Quantity, Price) values (519, 2013, 209, 9, '$46.48');
+insert into OrderItems (OrderID, ProductID, PromoID, Quantity, Price) values (548, 2001, 205, 15, '$49.57');
+insert into OrderItems (OrderID, ProductID, PromoID, Quantity, Price) values (567, 2008, 209, 5, '$30.17');
+insert into OrderItems (OrderID, ProductID, PromoID, Quantity, Price) values (597, 2004, 212, 5, '$46.40');
+insert into OrderItems (OrderID, ProductID, PromoID, Quantity, Price) values (541, 2000, 204, 14, '$20.17');
+insert into OrderItems (OrderID, ProductID, PromoID, Quantity, Price) values (565, 2002, 204, 16, '$2.05');
+insert into OrderItems (OrderID, ProductID, PromoID, Quantity, Price) values (506, 2012, 201, 15, '$12.17');
+insert into OrderItems (OrderID, ProductID, PromoID, Quantity, Price) values (576, 2013, 205, 7, '$15.67');
+insert into OrderItems (OrderID, ProductID, PromoID, Quantity, Price) values (517, 2009, 215, 1, '$34.45');
+insert into OrderItems (OrderID, ProductID, PromoID, Quantity, Price) values (599, 2008, 218, 18, '$46.53');
+insert into OrderItems (OrderID, ProductID, PromoID, Quantity, Price) values (522, 2007, 209, 20, '$46.99');
+insert into OrderItems (OrderID, ProductID, PromoID, Quantity, Price) values (564, 2012, 217, 17, '$14.37');
+insert into OrderItems (OrderID, ProductID, PromoID, Quantity, Price) values (567, 2013, 212, 13, '$14.51');
+insert into OrderItems (OrderID, ProductID, PromoID, Quantity, Price) values (574, 2004, 214, 19, '$33.26');
+insert into OrderItems (OrderID, ProductID, PromoID, Quantity, Price) values (550, 2013, 215, 2, '$49.35');
+insert into OrderItems (OrderID, ProductID, PromoID, Quantity, Price) values (506, 2009, 209, 6, '$25.96');
+insert into OrderItems (OrderID, ProductID, PromoID, Quantity, Price) values (503, 2007, 202, 19, '$38.97');
+insert into OrderItems (OrderID, ProductID, PromoID, Quantity, Price) values (540, 2003, 216, 14, '$47.17');
+insert into OrderItems (OrderID, ProductID, PromoID, Quantity, Price) values (528, 2002, 204, 3, '$11.53');
+insert into OrderItems (OrderID, ProductID, PromoID, Quantity, Price) values (547, 2005, 214, 1, '$1.80');
+insert into OrderItems (OrderID, ProductID, PromoID, Quantity, Price) values (569, 2000, 218, 1, '$49.49');
+insert into OrderItems (OrderID, ProductID, PromoID, Quantity, Price) values (508, 2013, 211, 5, '$11.03');
+insert into OrderItems (OrderID, ProductID, PromoID, Quantity, Price) values (560, 2008, 212, 11, '$41.81');
+insert into OrderItems (OrderID, ProductID, PromoID, Quantity, Price) values (564, 2002, 213, 1, '$1.96');
+insert into OrderItems (OrderID, ProductID, PromoID, Quantity, Price) values (539, 2003, 215, 1, '$40.80');
+insert into OrderItems (OrderID, ProductID, PromoID, Quantity, Price) values (526, 2005, 213, 8, '$35.33');
+insert into OrderItems (OrderID, ProductID, PromoID, Quantity, Price) values (520, 2005, 213, 2, '$20.44');
+insert into OrderItems (OrderID, ProductID, PromoID, Quantity, Price) values (536, 2012, 209, 5, '$40.46');
+insert into OrderItems (OrderID, ProductID, PromoID, Quantity, Price) values (520, 2009, 201, 16, '$12.62');
+insert into OrderItems (OrderID, ProductID, PromoID, Quantity, Price) values (506, 2007, 214, 2, '$22.35');
+insert into OrderItems (OrderID, ProductID, PromoID, Quantity, Price) values (572, 2006, 207, 17, '$32.01');
+insert into OrderItems (OrderID, ProductID, PromoID, Quantity, Price) values (592, 2007, 209, 1, '$19.30');
+insert into OrderItems (OrderID, ProductID, PromoID, Quantity, Price) values (574, 2006, 215, 11, '$10.50');
+insert into OrderItems (OrderID, ProductID, PromoID, Quantity, Price) values (580, 2004, 208, 10, '$47.82');
+insert into OrderItems (OrderID, ProductID, PromoID, Quantity, Price) values (549, 2003, 201, 16, '$48.93');
+insert into OrderItems (OrderID, ProductID, PromoID, Quantity, Price) values (554, 2000, 211, 11, '$23.97');
+insert into OrderItems (OrderID, ProductID, PromoID, Quantity, Price) values (561, 2000, 212, 10, '$20.60');
+insert into OrderItems (OrderID, ProductID, PromoID, Quantity, Price) values (576, 2008, 217, 14, '$47.00');
+insert into OrderItems (OrderID, ProductID, PromoID, Quantity, Price) values (522, 2012, 200, 6, '$18.54');
+insert into OrderItems (OrderID, ProductID, PromoID, Quantity, Price) values (586, 2003, 208, 20, '$26.85');
+insert into OrderItems (OrderID, ProductID, PromoID, Quantity, Price) values (508, 2008, 213, 1, '$15.03');
+insert into OrderItems (OrderID, ProductID, PromoID, Quantity, Price) values (592, 2009, 214, 1, '$6.88');
+insert into OrderItems (OrderID, ProductID, PromoID, Quantity, Price) values (589, 2002, 206, 5, '$46.63');
+insert into OrderItems (OrderID, ProductID, PromoID, Quantity, Price) values (577, 2001, 209, 18, '$39.60');
+insert into OrderItems (OrderID, ProductID, PromoID, Quantity, Price) values (577, 2013, 208, 12, '$3.73');
+insert into OrderItems (OrderID, ProductID, PromoID, Quantity, Price) values (583, 2001, 207, 15, '$49.43');
+insert into OrderItems (OrderID, ProductID, PromoID, Quantity, Price) values (507, 2005, 207, 9, '$35.31');
+insert into OrderItems (OrderID, ProductID, PromoID, Quantity, Price) values (512, 2003, 216, 4, '$22.54');
+insert into OrderItems (OrderID, ProductID, PromoID, Quantity, Price) values (519, 2006, 215, 15, '$31.42');
+
+
+CREATE TABLE dwProductsDim
+(
+   	ProductID INT PRIMARY KEY,
+	ProductName VARCHAR(15),
+	UnitPrice MONEY,
+	UnitWhlSlePrice MONEY,
+	RecTimestamp DATETIME
+);
+
+CREATE TABLE dwCustomerDim
+(
+   	CustomerID INT PRIMARY KEY,
+	CustomerFName VARCHAR(15),
+	CustomerLName VARCHAR(20),
+	CustEmail VARCHAR(40),
+	CustPhone VARCHAR(16),
+	RecTimestamp DATETIME
+
+);
+
+CREATE TABLE dwOrdersAgg
+(
+   	OrderID INT PRIMARY KEY,
+	TotalSalesPrice MONEY,
+	TotalWhlSlePrice MONEY,
+	TotalItems INT,
+	RecTimestamp DATETIME
+);
+
+CREATE TABLE dwPromotionDim
+(
+   	PromoID INT PRIMARY KEY,
+	PromoDesc VARCHAR(200),
+	DiscountAmt DECIMAL(2,2),
+	RecTimestamp DATETIME
+);
+
+CREATE TABLE dwDateDim
+(
+   	DateID INT IDENTITY(1,1) PRIMARY KEY,
+	RawDate DATE,
+	HourOfDay INT,
+	[DayOfWeek] VARCHAR(15),
+	MonthOfYear VARCHAR(15),
+	QtrOfYear VARCHAR(15),
+	PurchYear INT,
+	RecTimestamp DATETIME
+);
+
