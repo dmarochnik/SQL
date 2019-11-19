@@ -914,3 +914,15 @@ CREATE TABLE dwDateDim
 	RecTimestamp DATETIME
 );
 
+CREATE TABLE dwSalesFacts
+(
+   	OrderID INT REFERENCES dwOrdersAgg(OrderID),
+   	ProductID INT REFERENCES dwProductsDim(ProductID),
+	CustomerID INT REFERENCES dwCustomerDim(CustomerID),
+	PromoID INT REFERENCES dwPromotionDim(PromoID),
+	DateID INT REFERENCES dwDateDim(DateID),
+	Quantity INT,
+	SalePrice MONEY,
+	PRIMARY KEY (OrderID, ProductID),
+	RecTimestamp DATETIME
+);
